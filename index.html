@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Navigation Pathfinder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🏥 Hospital Pathfinder</h1>
+        
+        <div class="input-section">
+            <label>Start Location:</label>
+            <select id="startNode"></select>
+            
+            <label>Destination:</label>
+            <select id="endNode"></select>
+            
+            <button id="findBtn">Get Directions</button>
+        </div>
+
+        <div id="output-card" class="hidden">
+            <h3>Best Route:</h3>
+            <p id="path-result"></p>
+            <p id="distance-result"></p>
+        </div>
+    </div>
+
+    <script src="graph.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
