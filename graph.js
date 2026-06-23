@@ -1,6 +1,6 @@
 const hospitalGraph = {
     // ==========================================
-    // REGIONAL CITY LEVEL
+    // REGIONAL CITY LEVEL (No abbreviations)
     // ==========================================
     "Main_Entrance": { 
         "Main_Reception_Desk": 15, 
@@ -24,7 +24,7 @@ const hospitalGraph = {
     "Residential_Area": { "East_Hospital": 800 },
 
     // ==========================================
-    // UNDERGROUND PARKING
+    // UNDERGROUND PARKING (Expanded Names)
     // ==========================================
     "Parking_Central_Hub": { "Ambulance_Bay": 20, "Parking_East_Zone": 20, "Parking_South_Zone": 20, "Parking_West_Zone": 20 },
     "Ambulance_Bay": { "Parking_Central_Hub": 20, "Elevator_1_Underground": 5, "Generator_Room": 10, "Maintenance_Workshop": 10 },
@@ -42,7 +42,7 @@ const hospitalGraph = {
     "Elevator_4_Underground": { "Parking_West_Zone": 5, "Elevator_4_Ground_Floor": 5 },
 
     // ==========================================
-    // GROUND FLOOR
+    // GROUND FLOOR (Expanded Names)
     // ==========================================
     "Main_Reception_Desk": { "Main_Entrance": 15, "Emergency_Room_Triage": 15, "Pharmacy": 15, "Cafeteria": 15, "Gift_Shop": 15, "Elevator_1_Ground_Floor": 20, "Elevator_2_Ground_Floor": 20, "Elevator_3_Ground_Floor": 20, "Elevator_4_Ground_Floor": 20 },
     "Emergency_Room_Triage": { "Main_Reception_Desk": 15, "Emergency_Entrance": 10 },
@@ -57,7 +57,7 @@ const hospitalGraph = {
     "Elevator_4_Ground_Floor": { "Elevator_4_Underground": 5, "Elevator_4_1st_Floor": 5, "Main_Reception_Desk": 20 },
 
     // ==========================================
-    // 1st FLOOR
+    // 1st FLOOR (Diagnostics)
     // ==========================================
     "Laboratory_Waiting_Area": { "Radiology_Department": 15, "Pathology_Laboratory": 15, "Blood_Bank": 15, "Dialysis_Center": 15, "Elevator_1_1st_Floor": 20, "Elevator_2_1st_Floor": 20, "Elevator_3_1st_Floor": 20, "Elevator_4_1st_Floor": 20 },
     "Radiology_Department": { "Laboratory_Waiting_Area": 15 },
@@ -71,7 +71,7 @@ const hospitalGraph = {
     "Elevator_4_1st_Floor": { "Elevator_4_Ground_Floor": 5, "Elevator_4_2nd_Floor": 5, "Laboratory_Waiting_Area": 20 },
 
     // ==========================================
-    // 2nd FLOOR
+    // 2nd FLOOR (Specialized Clinics)
     // ==========================================
     "Doctors_Lobby": { "Cardiology_Wing": 15, "Neurology_Wing": 15, "Oncology_Department": 15, "Orthopedics_Clinic": 15, "Elevator_1_2nd_Floor": 20, "Elevator_2_2nd_Floor": 20, "Elevator_3_2nd_Floor": 20, "Elevator_4_2nd_Floor": 20 },
     "Cardiology_Wing": { "Doctors_Lobby": 15 },
@@ -85,7 +85,7 @@ const hospitalGraph = {
     "Elevator_4_2nd_Floor": { "Elevator_4_1st_Floor": 5, "Elevator_4_3rd_Floor": 5, "Doctors_Lobby": 20 },
 
     // ==========================================
-    // 3rd FLOOR
+    // 3rd FLOOR (Surgical Suite)
     // ==========================================
     "Sterile_Hallway": { "Operating_Theater_1": 10, "Operating_Theater_2": 10, "Recovery_Ward": 15, "Pre_Surgery_Preparation_Room": 15, "Elevator_1_3rd_Floor": 20, "Elevator_2_3rd_Floor": 20, "Elevator_3_3rd_Floor": 20, "Elevator_4_3rd_Floor": 20 },
     "Operating_Theater_1": { "Sterile_Hallway": 10, "Elevator_1_3rd_Floor": 5 },
@@ -99,7 +99,7 @@ const hospitalGraph = {
     "Elevator_4_3rd_Floor": { "Elevator_4_2nd_Floor": 5, "Elevator_4_4th_Floor": 5, "Sterile_Hallway": 20 },
 
     // ==========================================
-    // 4th FLOOR
+    // 4th FLOOR (Wards)
     // ==========================================
     "Central_Nursing_Station": { "Pediatric_Ward": 15, "Maternity_Ward": 15, "General_Ward_A": 15, "General_Ward_B": 15, "Elevator_1_4th_Floor": 20, "Elevator_2_4th_Floor": 20, "Elevator_3_4th_Floor": 20, "Elevator_4_4th_Floor": 20 },
     "Pediatric_Ward": { "Central_Nursing_Station": 15 },
@@ -113,7 +113,7 @@ const hospitalGraph = {
     "Elevator_4_4th_Floor": { "Elevator_4_3rd_Floor": 5, "Elevator_4_5th_Floor": 5, "Central_Nursing_Station": 20 },
 
     // ==========================================
-    // 5th FLOOR
+    // 5th FLOOR (Critical Care & Admin)
     // ==========================================
     "Security_Hub": { "Intensive_Care_Unit": 10, "Neonatal_Intensive_Care_Unit": 15, "Private_VIP_Suite": 15, "Administration_Boardroom": 20, "Elevator_1_5th_Floor": 20, "Elevator_2_5th_Floor": 20, "Elevator_3_5th_Floor": 20, "Elevator_4_5th_Floor": 20 },
     "Intensive_Care_Unit": { "Security_Hub": 10, "Elevator_1_5th_Floor": 5 },

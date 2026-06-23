@@ -49,6 +49,7 @@ function generateDetailedInstructions(path) {
         let dist = hospitalGraph[current][next];
         let cleanCurrent = current.replace(/_/g, ' ');
         let cleanNext = next.replace(/_/g, ' ');
+
         if (current.includes("Elevator") && next.includes("Elevator") && current.substring(0,10) === next.substring(0,10)) {
             let destFloor = cleanNext.split(" ").slice(2).join(" ");
             html += `<li>Take <b>${cleanCurrent.split(" ")[0]} ${cleanCurrent.split(" ")[1]}</b> up to the <b>${destFloor}</b></li>`;
@@ -92,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
         distanceResult.innerHTML = `<hr><b>Total Trip:</b> ${formatDistance(result.distance)}`;
     });
 
+    // LIST MATCHED TO graph.js (Fully Expanded)
     const allHospitals = [
         "Main_Entrance", "North_Hospital", "North_East_Hospital", "East_Hospital", "South_East_Hospital", 
         "South_Hospital", "South_West_Hospital", "West_Hospital", "North_West_Hospital"
