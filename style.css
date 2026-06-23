@@ -8,3 +8,19 @@ button:hover { background: #2980b9; }
 #output-card { background: #e8f4fd; border-left: 5px solid #3498db; padding: 15px; border-radius: 5px; }
 .hidden { display: none; }
 #path-result { color: #2980b9; font-weight: bold; line-height: 1.6; }
+.emergency-btn { 
+    background: #e74c3c; 
+    color: white; 
+    border: none; 
+    padding: 12px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    width: 100%; 
+    margin-top: 10px;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+.emergency-btn:hover { 
+    background: #c0392b; 
+}
