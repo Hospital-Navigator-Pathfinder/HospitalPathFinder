@@ -1,14 +1,6 @@
 const hospitalGraph = {
-    // ==========================================
-    // REGIONAL CITY LEVEL (No abbreviations)
-    // ==========================================
-    "Main_Entrance": { 
-        "Main_Reception_Desk": 15, 
-        "North_Hospital": 2500, "South_Hospital": 1800, "East_Hospital": 3100, "West_Hospital": 2200, 
-        "North_East_Hospital": 4200, "South_East_Hospital": 5500, "South_West_Hospital": 3600, 
-        "North_West_Hospital": 4800, "Downtown_Area": 500 
-    },
-    
+    // --- CITY ---
+    "Main_Entrance": { "Main_Reception_Desk": 15, "North_Hospital": 2500, "South_Hospital": 1800, "East_Hospital": 3100, "West_Hospital": 2200, "North_East_Hospital": 4200, "South_East_Hospital": 5500, "South_West_Hospital": 3600, "North_West_Hospital": 4800, "Downtown_Area": 500 },
     "North_Hospital": { "Main_Entrance": 2500, "North_East_Hospital": 2000, "Uptown_District": 1000 },
     "North_East_Hospital": { "Main_Entrance": 4200, "North_Hospital": 2000 },
     "East_Hospital": { "Main_Entrance": 3100, "Residential_Area": 800 },
@@ -17,15 +9,12 @@ const hospitalGraph = {
     "South_West_Hospital": { "Main_Entrance": 3600 },
     "West_Hospital": { "Main_Entrance": 2200, "North_West_Hospital": 1500, "Industrial_Park": 1200 },
     "North_West_Hospital": { "Main_Entrance": 4800, "West_Hospital": 1500 },
-
     "Downtown_Area": { "Main_Entrance": 500 },
     "Uptown_District": { "North_Hospital": 1000 },
     "Industrial_Park": { "West_Hospital": 1200 },
     "Residential_Area": { "East_Hospital": 800 },
 
-    // ==========================================
-    // UNDERGROUND PARKING (Expanded Names)
-    // ==========================================
+    // --- UNDERGROUND ---
     "Parking_Central_Hub": { "Ambulance_Bay": 20, "Parking_East_Zone": 20, "Parking_South_Zone": 20, "Parking_West_Zone": 20 },
     "Ambulance_Bay": { "Parking_Central_Hub": 20, "Elevator_1_Underground": 5, "Generator_Room": 10, "Maintenance_Workshop": 10 },
     "Generator_Room": { "Ambulance_Bay": 10 },
@@ -35,92 +24,73 @@ const hospitalGraph = {
     "Car_Entrance_South_West": { "Parking_South_Zone": 10 },
     "Parking_East_Zone": { "Parking_Central_Hub": 20, "Elevator_3_Underground": 5 },
     "Parking_West_Zone": { "Parking_Central_Hub": 20, "Elevator_4_Underground": 5 },
-    
     "Elevator_1_Underground": { "Ambulance_Bay": 5, "Elevator_1_Ground_Floor": 5 },
     "Elevator_2_Underground": { "Parking_South_Zone": 5, "Elevator_2_Ground_Floor": 5 },
     "Elevator_3_Underground": { "Parking_East_Zone": 5, "Elevator_3_Ground_Floor": 5 },
     "Elevator_4_Underground": { "Parking_West_Zone": 5, "Elevator_4_Ground_Floor": 5 },
 
-    // ==========================================
-    // GROUND FLOOR (Expanded Names)
-    // ==========================================
+    // --- GROUND FLOOR ---
     "Main_Reception_Desk": { "Main_Entrance": 15, "Emergency_Room_Triage": 15, "Pharmacy": 15, "Cafeteria": 15, "Gift_Shop": 15, "Elevator_1_Ground_Floor": 20, "Elevator_2_Ground_Floor": 20, "Elevator_3_Ground_Floor": 20, "Elevator_4_Ground_Floor": 20 },
     "Emergency_Room_Triage": { "Main_Reception_Desk": 15, "Emergency_Entrance": 10 },
     "Emergency_Entrance": { "Emergency_Room_Triage": 10, "Elevator_1_Ground_Floor": 5 },
     "Pharmacy": { "Main_Reception_Desk": 15 },
     "Cafeteria": { "Main_Reception_Desk": 15 },
     "Gift_Shop": { "Main_Reception_Desk": 15 },
-
     "Elevator_1_Ground_Floor": { "Emergency_Entrance": 5, "Elevator_1_Underground": 5, "Elevator_1_1st_Floor": 5, "Main_Reception_Desk": 20 },
     "Elevator_2_Ground_Floor": { "Elevator_2_Underground": 5, "Elevator_2_1st_Floor": 5, "Main_Reception_Desk": 20 },
     "Elevator_3_Ground_Floor": { "Elevator_3_Underground": 5, "Elevator_3_1st_Floor": 5, "Main_Reception_Desk": 20 },
     "Elevator_4_Ground_Floor": { "Elevator_4_Underground": 5, "Elevator_4_1st_Floor": 5, "Main_Reception_Desk": 20 },
 
-    // ==========================================
-    // 1st FLOOR (Diagnostics)
-    // ==========================================
+    // --- 1st FLOOR ---
     "Laboratory_Waiting_Area": { "Radiology_Department": 15, "Pathology_Laboratory": 15, "Blood_Bank": 15, "Dialysis_Center": 15, "Elevator_1_1st_Floor": 20, "Elevator_2_1st_Floor": 20, "Elevator_3_1st_Floor": 20, "Elevator_4_1st_Floor": 20 },
     "Radiology_Department": { "Laboratory_Waiting_Area": 15 },
     "Pathology_Laboratory": { "Laboratory_Waiting_Area": 15 },
     "Blood_Bank": { "Laboratory_Waiting_Area": 15 },
     "Dialysis_Center": { "Laboratory_Waiting_Area": 15 },
-
     "Elevator_1_1st_Floor": { "Elevator_1_Ground_Floor": 5, "Elevator_1_2nd_Floor": 5, "Laboratory_Waiting_Area": 20 },
     "Elevator_2_1st_Floor": { "Elevator_2_Ground_Floor": 5, "Elevator_2_2nd_Floor": 5, "Laboratory_Waiting_Area": 20 },
     "Elevator_3_1st_Floor": { "Elevator_3_Ground_Floor": 5, "Elevator_3_2nd_Floor": 5, "Laboratory_Waiting_Area": 20 },
     "Elevator_4_1st_Floor": { "Elevator_4_Ground_Floor": 5, "Elevator_4_2nd_Floor": 5, "Laboratory_Waiting_Area": 20 },
 
-    // ==========================================
-    // 2nd FLOOR (Specialized Clinics)
-    // ==========================================
+    // --- 2nd FLOOR ---
     "Doctors_Lobby": { "Cardiology_Wing": 15, "Neurology_Wing": 15, "Oncology_Department": 15, "Orthopedics_Clinic": 15, "Elevator_1_2nd_Floor": 20, "Elevator_2_2nd_Floor": 20, "Elevator_3_2nd_Floor": 20, "Elevator_4_2nd_Floor": 20 },
     "Cardiology_Wing": { "Doctors_Lobby": 15 },
     "Neurology_Wing": { "Doctors_Lobby": 15 },
     "Oncology_Department": { "Doctors_Lobby": 15 },
     "Orthopedics_Clinic": { "Doctors_Lobby": 15 },
-
     "Elevator_1_2nd_Floor": { "Elevator_1_1st_Floor": 5, "Elevator_1_3rd_Floor": 5, "Doctors_Lobby": 20 },
     "Elevator_2_2nd_Floor": { "Elevator_2_1st_Floor": 5, "Elevator_2_3rd_Floor": 5, "Doctors_Lobby": 20 },
     "Elevator_3_2nd_Floor": { "Elevator_3_1st_Floor": 5, "Elevator_3_3rd_Floor": 5, "Doctors_Lobby": 20 },
     "Elevator_4_2nd_Floor": { "Elevator_4_1st_Floor": 5, "Elevator_4_3rd_Floor": 5, "Doctors_Lobby": 20 },
 
-    // ==========================================
-    // 3rd FLOOR (Surgical Suite)
-    // ==========================================
+    // --- 3rd FLOOR ---
     "Sterile_Hallway": { "Operating_Theater_1": 10, "Operating_Theater_2": 10, "Recovery_Ward": 15, "Pre_Surgery_Preparation_Room": 15, "Elevator_1_3rd_Floor": 20, "Elevator_2_3rd_Floor": 20, "Elevator_3_3rd_Floor": 20, "Elevator_4_3rd_Floor": 20 },
     "Operating_Theater_1": { "Sterile_Hallway": 10, "Elevator_1_3rd_Floor": 5 },
     "Operating_Theater_2": { "Sterile_Hallway": 10, "Elevator_2_3rd_Floor": 5 },
     "Recovery_Ward": { "Sterile_Hallway": 15 },
     "Pre_Surgery_Preparation_Room": { "Sterile_Hallway": 15 },
-
     "Elevator_1_3rd_Floor": { "Elevator_1_2nd_Floor": 5, "Elevator_1_4th_Floor": 5, "Operating_Theater_1": 5, "Sterile_Hallway": 20 },
     "Elevator_2_3rd_Floor": { "Elevator_2_2nd_Floor": 5, "Elevator_2_4th_Floor": 5, "Operating_Theater_2": 5, "Sterile_Hallway": 20 },
     "Elevator_3_3rd_Floor": { "Elevator_3_2nd_Floor": 5, "Elevator_3_4th_Floor": 5, "Sterile_Hallway": 20 },
     "Elevator_4_3rd_Floor": { "Elevator_4_2nd_Floor": 5, "Elevator_4_4th_Floor": 5, "Sterile_Hallway": 20 },
 
-    // ==========================================
-    // 4th FLOOR (Wards)
-    // ==========================================
+    // --- 4th FLOOR ---
     "Central_Nursing_Station": { "Pediatric_Ward": 15, "Maternity_Ward": 15, "General_Ward_A": 15, "General_Ward_B": 15, "Elevator_1_4th_Floor": 20, "Elevator_2_4th_Floor": 20, "Elevator_3_4th_Floor": 20, "Elevator_4_4th_Floor": 20 },
     "Pediatric_Ward": { "Central_Nursing_Station": 15 },
     "Maternity_Ward": { "Central_Nursing_Station": 15 },
     "General_Ward_A": { "Central_Nursing_Station": 15 },
     "General_Ward_B": { "Central_Nursing_Station": 15 },
-
     "Elevator_1_4th_Floor": { "Elevator_1_3rd_Floor": 5, "Elevator_1_5th_Floor": 5, "Central_Nursing_Station": 20 },
     "Elevator_2_4th_Floor": { "Elevator_2_3rd_Floor": 5, "Elevator_2_5th_Floor": 5, "Central_Nursing_Station": 20 },
     "Elevator_3_4th_Floor": { "Elevator_3_3rd_Floor": 5, "Elevator_3_5th_Floor": 5, "Central_Nursing_Station": 20 },
     "Elevator_4_4th_Floor": { "Elevator_4_3rd_Floor": 5, "Elevator_4_5th_Floor": 5, "Central_Nursing_Station": 20 },
 
-    // ==========================================
-    // 5th FLOOR (Critical Care & Admin)
-    // ==========================================
+    // --- 5th FLOOR ---
     "Security_Hub": { "Intensive_Care_Unit": 10, "Neonatal_Intensive_Care_Unit": 15, "Private_VIP_Suite": 15, "Administration_Boardroom": 20, "Elevator_1_5th_Floor": 20, "Elevator_2_5th_Floor": 20, "Elevator_3_5th_Floor": 20, "Elevator_4_5th_Floor": 20 },
     "Intensive_Care_Unit": { "Security_Hub": 10, "Elevator_1_5th_Floor": 5 },
     "Neonatal_Intensive_Care_Unit": { "Security_Hub": 15 },
     "Private_VIP_Suite": { "Security_Hub": 15, "Elevator_2_5th_Floor": 5 },
     "Administration_Boardroom": { "Security_Hub": 20 },
-
     "Elevator_1_5th_Floor": { "Elevator_1_4th_Floor": 5, "Intensive_Care_Unit": 5, "Security_Hub": 20 },
     "Elevator_2_5th_Floor": { "Elevator_2_4th_Floor": 5, "Private_VIP_Suite": 5, "Security_Hub": 20 },
     "Elevator_3_5th_Floor": { "Elevator_3_4th_Floor": 5, "Security_Hub": 20 },

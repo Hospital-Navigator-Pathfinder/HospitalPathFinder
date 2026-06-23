@@ -8,21 +8,30 @@
 </head>
 <body>
     <div class="container">
-        <h1>🏥 Hospital Pathfinder</h1>
+        <!-- Language Picker -->
+        <div class="language-section">
+            <label id="langLabel">🌐 Language / ቋንቋ: </label>
+            <select id="languageSelect">
+                <option value="en">English</option>
+                <option value="am">አማርኛ (Amharic)</option>
+            </select>
+        </div>
+
+        <h1 id="mainTitle">🏥 Hospital Pathfinder</h1>
         
         <div class="input-section">
-            <label>📍 My Current Location:</label>
+            <label id="startLabel">📍 My Current Location:</label>
             <select id="startNode"></select>
             
-            <label>Destination:</label>
+            <label id="endLabel">Destination:</label>
             <select id="endNode"></select>
             
             <button id="findBtn">Get Directions</button>
-<button id="emergencyBtn" class="emergency-btn">🚨 EMERGENCY: Find Nearest Hospital</button>
+            <button id="emergencyBtn" class="emergency-btn">🚨 EMERGENCY: Find Nearest Hospital</button>
         </div>
 
         <div id="output-card" class="hidden">
-            <h3>Best Route:</h3>
+            <h3 id="routeTitle">Best Route:</h3>
             <p id="path-result"></p>
             <p id="distance-result"></p>
         </div>
