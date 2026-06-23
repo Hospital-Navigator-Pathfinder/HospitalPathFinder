@@ -23,7 +23,6 @@ function findShortestPath(startNode, endNode) {
     return { path: path.concat(startNode).reverse(), distance: distances[endNode] };
 }
 
-// --- FULL DICTIONARY ---
 const translations = {
     "am": {
         "title": "🏥 የሆስፒታል አቅጣጫ አመልካች", "current_loc": "📍 አሁን ያሉበት ቦታ:", "destination": "መድረሻ:",
@@ -31,11 +30,9 @@ const translations = {
         "route_title": "ምርጥ አቅጣጫ:", "placeholder": "📍 ያሉበትን ቦታ ይምረጡ...",
         "North": "ወደ ሰሜን", "South": "ወደ ደቡብ", "East": "ወደ ምስራቅ", "West": "ወደ ምዕራብ",
         "North East": "ወደ ሰሜን ምስራቅ", "North West": "ወደ ሰሜን ምዕራብ", "South East": "ወደ ደቡብ ምስራቅ", "South West": "ወደ ደቡብ ምዕራብ",
-        "total": "ጠቅላላ ርቀት:", "meters": "ሜትር", "km": "ኪ.ሜ",
-        // Floors
-        "Underground": "ከርሰ ምድር", "Ground Floor": "ምድር ቤት", "1st Floor": "1ኛ ፎቅ", "2nd Floor": "2ኛ ፎቅ", "3rd Floor": "3ኛ ፎቅ", "4th Floor": "4ኛ ፎቅ", "5th Floor": "5ኛ ፎቅ",
-        // Locations
-        "Main Entrance": "ዋና መግቢያ", "Main Reception Desk": "ዋና መቀበያ ጠረጴዛ", "Emergency Room Triage": "የአደጋ ጊዜ ታካሚዎች መለያ ክፍል", "Emergency Entrance": "የአደጋ ጊዜ መግቢያ", "Pharmacy": "መድኃኒት ቤት", "Cafeteria": "ካፌቴሪያ", "Gift Shop": "የጥቅማጥቅም መሸጫ ሱቅ",
+        "Up": "ወደ ላይ", "Down": "ወደ ታች", "total": "ጠቅላላ ርቀት:",
+        // FULL NODE DICTIONARY
+        "Main Entrance": "ዋና መግቢያ", "Main Reception Desk": "ዋና መቀበያ ጠረጴዛ", "Emergency Room Triage": "የአደጋ ጊዜ ታካሚዎች መለያ ክፍል", "Emergency Entrance": "የአደጋ ጊዜ መግቢያ", "Pharmacy": "መድኃኒት ቤት", "Cafeteria": "ካፌቴሪያ", "Gift_Shop": "የጥቅማጥቅም መሸጫ ሱቅ",
         "Laboratory Waiting Area": "የላብራቶሪ መጠበቂያ ቦታ", "Radiology Department": "የራጅ ክፍል", "Pathology Laboratory": "የፓቶሎጂ ላብራቶሪ", "Blood Bank": "የደም ባንክ", "Dialysis Center": "የዲያሊሲስ ማዕከል",
         "Doctors Lobby": "የሐኪሞች መቀበያ", "Cardiology Wing": "የልብ ሕክምና ክፍል", "Neurology Wing": "የነርቭ ሕክምና ክፍል", "Oncology Department": "የካንሰር ሕክምና ክፍል", "Orthopedics Clinic": "የአጥንት ሕክምና ክሊኒክ",
         "Sterile Hallway": "ንፁህ ኮሪደር", "Operating Theater 1": "የቀዶ ጥገና ክፍል 1", "Operating Theater 2": "የቀዶ ጥገና ክፍል 2", "Recovery Ward": "የማገገሚያ ክፍል", "Pre Surgery Preparation Room": "ከቀዶ ጥገና በፊት ዝግጅት ክፍል",
@@ -44,7 +41,8 @@ const translations = {
         "Parking Central Hub": "ማዕከላዊ የመኪና ማቆሚያ", "Ambulance Bay": "የአምቡላንስ ማቆሚያ", "Parking East Zone": "ምስራቅ የመኪና ማቆሚያ ዞን", "Parking South Zone": "ደቡብ የመኪና ማቆሚያ ዞን", "Parking West Zone": "ምዕራብ የመኪና ማቆሚያ ዞን",
         "Car Entrance South East": "ደቡብ ምስራቅ የመኪና መግቢያ", "Car Entrance South West": "ደቡብ ምዕራብ የመኪና መግቢያ", "Maintenance Workshop": "የጥገና አውደ ጥናት", "Generator Room": "የጄኔሬተር ክፍል",
         "Downtown Area": "መሀል ከተማ", "Uptown District": "አፕታውን ዲስትሪክት", "Industrial Park": "የኢንዱስትሪ ፓርክ", "Residential Area": "የመኖሪያ አካባቢ",
-        "North Hospital": "ሰሜን ሆስፒታል", "South Hospital": "ደቡብ ሆስፒታል", "East Hospital": "ምስራቅ ሆስፒታል", "West Hospital": "ምዕራብ ሆስፒታል", "North East Hospital": "ሰሜን ምስራቅ ሆስፒታል", "South East Hospital": "ደቡብ ምስራቅ ሆስፒታል", "South West Hospital": "ደቡብ ምዕራብ ሆስፒታል", "North West Hospital": "ሰሜን ምዕራብ ሆስፒታል"
+        "North Hospital": "ሰሜን ሆስፒታል", "South Hospital": "ደቡብ ሆስፒታል", "East Hospital": "ምስራቅ ሆስፒታል", "West Hospital": "ምዕራብ ሆስፒታል", "North East Hospital": "ሰሜን ምስራቅ ሆስፒታል", "South East Hospital": "ደቡብ ምስራቅ ሆስፒታል", "South West Hospital": "ደቡብ ምዕራብ ሆስፒታል", "North West Hospital": "ሰሜን ምዕራብ ሆስፒታል",
+        "Underground": "ከርሰ ምድር", "Ground Floor": "ምድር ቤት", "1st Floor": "1ኛ ፎቅ", "2nd Floor": "2ኛ ፎቅ", "3rd Floor": "3ኛ ፎቅ", "4th Floor": "4ኛ ፎቅ", "5th Floor": "5ኛ ፎቅ"
     }
 };
 
@@ -55,7 +53,8 @@ function translate(text) {
     let clean = text.replace(/_/g, ' ').trim();
     if (currentLang === "am") {
         if (clean.includes("Elevator")) {
-            let p = clean.split(" "); let f = p.slice(2).join(" ");
+            let p = clean.split(" "); 
+            let f = p.slice(2).join(" ");
             return `ሊፍት ${p[1]} (${translations.am[f] || f})`;
         }
         return translations.am[clean] || clean;
@@ -68,14 +67,14 @@ function generateDetailedInstructions(path) {
     let i = 0;
     while (i < path.length - 1) {
         let current = path[i], next = path[i+1];
-        let curC = current.replace(/_/g, ' '), nxtC = next.replace(/_/g, ' ');
+        let cC = current.replace(/_/g, ' '), nC = next.replace(/_/g, ' ');
 
-        if (curC.startsWith("Elevator") && nxtC.startsWith("Elevator") && curC.split(" ")[1] === nxtC.split(" ")[1]) {
-            let elevID = curC.split(" ")[0] + "_" + curC.split(" ")[1];
+        if (cC.startsWith("Elevator") && nC.startsWith("Elevator") && cC.split(" ")[1] === nC.split(" ")[1]) {
+            let eID = cC.split(" ")[0] + "_" + cC.split(" ")[1];
             let j = i;
-            while (j < path.length - 1 && path[j+1].startsWith(elevID)) { j++; }
+            while (j < path.length - 1 && path[j+1].startsWith(eID)) { j++; }
             let floor = translate(path[j].split("_").slice(2).join(" "));
-            html += (currentLang === "am") ? `<li>በ<b>${translate(elevID)}</b> በቀጥታ ወደ <b>${floor}</b> ይሂዱ</li>` : `<li>Take <b>${elevID.replace(/_/g, ' ')}</b> directly to the <b>${path[j].split("_").slice(2).join(" ")}</b></li>`;
+            html += (currentLang === "am") ? `<li>በ<b>${translate(cC.split(" ")[0]+" "+cC.split(" ")[1])}</b> በቀጥታ ወደ <b>${floor}</b> ይሂዱ</li>` : `<li>Take <b>${cC.split(" ")[0]} ${cC.split(" ")[1]}</b> directly to the <b>${path[j].split("_").slice(2).join(" ")}</b></li>`;
             i = j;
         } else {
             let edge = hospitalGraph[current][next];
@@ -102,7 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("routeTitle").innerText = currentLang === "am" ? translations.am.route_title : "Best Route:";
         findBtn.innerText = currentLang === "am" ? translations.am.get_dir : "Get Directions";
         emBtn.innerText = currentLang === "am" ? translations.am.emergency_btn : "🚨 EMERGENCY: Find Nearest Hospital";
-
         let s = startSelect.value, e = endSelect.value;
         startSelect.innerHTML = ""; endSelect.innerHTML = "";
         startSelect.add(new Option(currentLang === "am" ? translations.am.placeholder : "📍 Select location...", ""));
@@ -114,7 +112,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     langSelect.addEventListener("change", (e) => { currentLang = e.target.value; updateUI(); output.classList.add("hidden"); });
-    
     findBtn.addEventListener("click", () => {
         if (!startSelect.value || !endSelect.value) return;
         const res = findShortestPath(startSelect.value, endSelect.value);
@@ -125,11 +122,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     emBtn.addEventListener("click", () => {
         const h = ["Main_Entrance", "North_Hospital", "North_East_Hospital", "East_Hospital", "South_East_Hospital", "South_Hospital", "South_West_Hospital", "West_Hospital", "North_West_Hospital"];
-        let min = Infinity, best = null, bestName = "";
-        h.forEach(x => { if (startSelect.value === x) return; let r = findShortestPath(startSelect.value, x); if (r.distance < min) { min = r.distance; best = r; bestName = x; } });
+        let min = Infinity, best = null;
+        h.forEach(x => { if (startSelect.value === x) return; let r = findShortestPath(startSelect.value, x); if (r.distance < min) { min = r.distance; best = r; } });
         if (best) {
             output.classList.remove("hidden");
-            document.getElementById("path-result").innerHTML = (currentLang === "am" ? `<b style='color:#e74c3c'>🚨 አስቸኳይ አደጋ፡ ወደ ${translate(bestName)} በመሄድ ላይ</b><br>` : "") + generateDetailedInstructions(best.path);
+            document.getElementById("path-result").innerHTML = generateDetailedInstructions(best.path);
             document.getElementById("distance-result").innerText = (currentLang === "am" ? translations.am.total + " " : "Total Distance: ") + formatDistance(min);
         }
     });
