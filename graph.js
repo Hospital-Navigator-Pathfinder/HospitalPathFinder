@@ -1,98 +1,93 @@
 const hospitalGraph = {
-    // --- CITY ---
-    "Main_Entrance": { "Main_Reception_Desk": 15, "North_Hospital": 2500, "South_Hospital": 1800, "East_Hospital": 3100, "West_Hospital": 2200, "North_East_Hospital": 4200, "South_East_Hospital": 5500, "South_West_Hospital": 3600, "North_West_Hospital": 4800, "Downtown_Area": 500 },
-    "North_Hospital": { "Main_Entrance": 2500, "North_East_Hospital": 2000, "Uptown_District": 1000 },
-    "North_East_Hospital": { "Main_Entrance": 4200, "North_Hospital": 2000 },
-    "East_Hospital": { "Main_Entrance": 3100, "Residential_Area": 800 },
-    "South_East_Hospital": { "Main_Entrance": 5500, "South_Hospital": 2500 },
-    "South_Hospital": { "Main_Entrance": 1800, "South_East_Hospital": 2500 },
-    "South_West_Hospital": { "Main_Entrance": 3600 },
-    "West_Hospital": { "Main_Entrance": 2200, "North_West_Hospital": 1500, "Industrial_Park": 1200 },
-    "North_West_Hospital": { "Main_Entrance": 4800, "West_Hospital": 1500 },
-    "Downtown_Area": { "Main_Entrance": 500 },
-    "Uptown_District": { "North_Hospital": 1000 },
-    "Industrial_Park": { "West_Hospital": 1200 },
-    "Residential_Area": { "East_Hospital": 800 },
+    // --- CITY LEVEL ---
+    "Main_Entrance": { 
+        "Main_Reception_Desk": { dist: 15, dir: "North" },
+        "North_Hospital": { dist: 2500, dir: "North" },
+        "South_Hospital": { dist: 1800, dir: "South" },
+        "East_Hospital": { dist: 3100, dir: "East" },
+        "West_Hospital": { dist: 2200, dir: "West" },
+        "North_East_Hospital": { dist: 4200, dir: "North East" },
+        "South_East_Hospital": { dist: 5500, dir: "South East" },
+        "South_West_Hospital": { dist: 3600, dir: "South West" },
+        "North_West_Hospital": { dist: 4800, dir: "North West" },
+        "Downtown_Area": { dist: 500, dir: "South" }
+    },
+    "North_Hospital": { "Main_Entrance": { dist: 2500, dir: "South" }, "Uptown_District": { dist: 1000, dir: "North" } },
+    "Downtown_Area": { "Main_Entrance": { dist: 500, dir: "North" } },
+    "Uptown_District": { "North_Hospital": { dist: 1000, dir: "South" } },
 
     // --- UNDERGROUND ---
-    "Parking_Central_Hub": { "Ambulance_Bay": 20, "Parking_East_Zone": 20, "Parking_South_Zone": 20, "Parking_West_Zone": 20 },
-    "Ambulance_Bay": { "Parking_Central_Hub": 20, "Elevator_1_Underground": 5, "Generator_Room": 10, "Maintenance_Workshop": 10 },
-    "Generator_Room": { "Ambulance_Bay": 10 },
-    "Maintenance_Workshop": { "Ambulance_Bay": 10 },
-    "Parking_South_Zone": { "Parking_Central_Hub": 20, "Elevator_2_Underground": 5, "Car_Entrance_South_East": 10, "Car_Entrance_South_West": 10 },
-    "Car_Entrance_South_East": { "Parking_South_Zone": 10 },
-    "Car_Entrance_South_West": { "Parking_South_Zone": 10 },
-    "Parking_East_Zone": { "Parking_Central_Hub": 20, "Elevator_3_Underground": 5 },
-    "Parking_West_Zone": { "Parking_Central_Hub": 20, "Elevator_4_Underground": 5 },
-    "Elevator_1_Underground": { "Ambulance_Bay": 5, "Elevator_1_Ground_Floor": 5 },
-    "Elevator_2_Underground": { "Parking_South_Zone": 5, "Elevator_2_Ground_Floor": 5 },
-    "Elevator_3_Underground": { "Parking_East_Zone": 5, "Elevator_3_Ground_Floor": 5 },
-    "Elevator_4_Underground": { "Parking_West_Zone": 5, "Elevator_4_Ground_Floor": 5 },
-
+    "Parking_Central_Hub": { 
+        "Ambulance_Bay": { dist: 20, dir: "North" },
+        "Parking_East_Zone": { dist: 20, dir: "East" },
+        "Parking_South_Zone": { dist: 20, dir: "South" },
+        "Parking_West_Zone": { dist: 20, dir: "West" }
+    },
+    "Ambulance_Bay": { "Parking_Central_Hub": { dist: 20, dir: "South" }, "Elevator_1_Underground": { dist: 5, dir: "North" } },
+    "Elevator_1_Underground": { "Ambulance_Bay": { dist: 5, dir: "South" }, "Elevator_1_Ground_Floor": { dist: 5, dir: "Up" } },
+    
     // --- GROUND FLOOR ---
-    "Main_Reception_Desk": { "Main_Entrance": 15, "Emergency_Room_Triage": 15, "Pharmacy": 15, "Cafeteria": 15, "Gift_Shop": 15, "Elevator_1_Ground_Floor": 20, "Elevator_2_Ground_Floor": 20, "Elevator_3_Ground_Floor": 20, "Elevator_4_Ground_Floor": 20 },
-    "Emergency_Room_Triage": { "Main_Reception_Desk": 15, "Emergency_Entrance": 10 },
-    "Emergency_Entrance": { "Emergency_Room_Triage": 10, "Elevator_1_Ground_Floor": 5 },
-    "Pharmacy": { "Main_Reception_Desk": 15 },
-    "Cafeteria": { "Main_Reception_Desk": 15 },
-    "Gift_Shop": { "Main_Reception_Desk": 15 },
-    "Elevator_1_Ground_Floor": { "Emergency_Entrance": 5, "Elevator_1_Underground": 5, "Elevator_1_1st_Floor": 5, "Main_Reception_Desk": 20 },
-    "Elevator_2_Ground_Floor": { "Elevator_2_Underground": 5, "Elevator_2_1st_Floor": 5, "Main_Reception_Desk": 20 },
-    "Elevator_3_Ground_Floor": { "Elevator_3_Underground": 5, "Elevator_3_1st_Floor": 5, "Main_Reception_Desk": 20 },
-    "Elevator_4_Ground_Floor": { "Elevator_4_Underground": 5, "Elevator_4_1st_Floor": 5, "Main_Reception_Desk": 20 },
+    "Main_Reception_Desk": { 
+        "Main_Entrance": { dist: 15, dir: "South" },
+        "Emergency_Room_Triage": { dist: 15, dir: "North West" },
+        "Pharmacy": { dist: 15, dir: "North East" },
+        "Cafeteria": { dist: 15, dir: "East" },
+        "Gift_Shop": { dist: 15, dir: "West" },
+        "Elevator_1_Ground_Floor": { dist: 20, dir: "North" }
+    },
+    "Emergency_Room_Triage": { "Main_Reception_Desk": { dist: 15, dir: "South East" }, "Emergency_Entrance": { dist: 10, dir: "North" } },
+    "Emergency_Entrance": { "Emergency_Room_Triage": { dist: 10, dir: "South" }, "Elevator_1_Ground_Floor": { dist: 5, dir: "East" } },
+    "Pharmacy": { "Main_Reception_Desk": { dist: 15, dir: "South West" } },
+    "Cafeteria": { "Main_Reception_Desk": { dist: 15, dir: "West" } },
+    "Gift_Shop": { "Main_Reception_Desk": { dist: 15, dir: "East" } },
+    "Elevator_1_Ground_Floor": { "Main_Reception_Desk": { dist: 20, dir: "South" }, "Elevator_1_1st_Floor": { dist: 5, dir: "Up" }, "Elevator_1_Underground": { dist: 5, dir: "Down" } },
 
     // --- 1st FLOOR ---
-    "Laboratory_Waiting_Area": { "Radiology_Department": 15, "Pathology_Laboratory": 15, "Blood_Bank": 15, "Dialysis_Center": 15, "Elevator_1_1st_Floor": 20, "Elevator_2_1st_Floor": 20, "Elevator_3_1st_Floor": 20, "Elevator_4_1st_Floor": 20 },
-    "Radiology_Department": { "Laboratory_Waiting_Area": 15 },
-    "Pathology_Laboratory": { "Laboratory_Waiting_Area": 15 },
-    "Blood_Bank": { "Laboratory_Waiting_Area": 15 },
-    "Dialysis_Center": { "Laboratory_Waiting_Area": 15 },
-    "Elevator_1_1st_Floor": { "Elevator_1_Ground_Floor": 5, "Elevator_1_2nd_Floor": 5, "Laboratory_Waiting_Area": 20 },
-    "Elevator_2_1st_Floor": { "Elevator_2_Ground_Floor": 5, "Elevator_2_2nd_Floor": 5, "Laboratory_Waiting_Area": 20 },
-    "Elevator_3_1st_Floor": { "Elevator_3_Ground_Floor": 5, "Elevator_3_2nd_Floor": 5, "Laboratory_Waiting_Area": 20 },
-    "Elevator_4_1st_Floor": { "Elevator_4_Ground_Floor": 5, "Elevator_4_2nd_Floor": 5, "Laboratory_Waiting_Area": 20 },
+    "Laboratory_Waiting_Area": { 
+        "Radiology_Department": { dist: 15, dir: "North East" },
+        "Pathology_Laboratory": { dist: 15, dir: "North West" },
+        "Blood_Bank": { dist: 15, dir: "South East" },
+        "Dialysis_Center": { dist: 15, dir: "South West" },
+        "Elevator_1_1st_Floor": { dist: 20, dir: "North" }
+    },
+    "Radiology_Department": { "Laboratory_Waiting_Area": { dist: 15, dir: "South West" } },
+    "Pathology_Laboratory": { "Laboratory_Waiting_Area": { dist: 15, dir: "South East" } },
+    "Elevator_1_1st_Floor": { "Laboratory_Waiting_Area": { dist: 20, dir: "South" }, "Elevator_1_2nd_Floor": { dist: 5, dir: "Up" }, "Elevator_1_Ground_Floor": { dist: 5, dir: "Down" } },
 
     // --- 2nd FLOOR ---
-    "Doctors_Lobby": { "Cardiology_Wing": 15, "Neurology_Wing": 15, "Oncology_Department": 15, "Orthopedics_Clinic": 15, "Elevator_1_2nd_Floor": 20, "Elevator_2_2nd_Floor": 20, "Elevator_3_2nd_Floor": 20, "Elevator_4_2nd_Floor": 20 },
-    "Cardiology_Wing": { "Doctors_Lobby": 15 },
-    "Neurology_Wing": { "Doctors_Lobby": 15 },
-    "Oncology_Department": { "Doctors_Lobby": 15 },
-    "Orthopedics_Clinic": { "Doctors_Lobby": 15 },
-    "Elevator_1_2nd_Floor": { "Elevator_1_1st_Floor": 5, "Elevator_1_3rd_Floor": 5, "Doctors_Lobby": 20 },
-    "Elevator_2_2nd_Floor": { "Elevator_2_1st_Floor": 5, "Elevator_2_3rd_Floor": 5, "Doctors_Lobby": 20 },
-    "Elevator_3_2nd_Floor": { "Elevator_3_1st_Floor": 5, "Elevator_3_3rd_Floor": 5, "Doctors_Lobby": 20 },
-    "Elevator_4_2nd_Floor": { "Elevator_4_1st_Floor": 5, "Elevator_4_3rd_Floor": 5, "Doctors_Lobby": 20 },
+    "Doctors_Lobby": { 
+        "Cardiology_Wing": { dist: 15, dir: "North East" },
+        "Neurology_Wing": { dist: 15, dir: "North West" },
+        "Elevator_1_2nd_Floor": { dist: 20, dir: "North" }
+    },
+    "Cardiology_Wing": { "Doctors_Lobby": { dist: 15, dir: "South West" } },
+    "Elevator_1_2nd_Floor": { "Doctors_Lobby": { dist: 20, dir: "South" }, "Elevator_1_3rd_Floor": { dist: 5, dir: "Up" }, "Elevator_1_1st_Floor": { dist: 5, dir: "Down" } },
 
     // --- 3rd FLOOR ---
-    "Sterile_Hallway": { "Operating_Theater_1": 10, "Operating_Theater_2": 10, "Recovery_Ward": 15, "Pre_Surgery_Preparation_Room": 15, "Elevator_1_3rd_Floor": 20, "Elevator_2_3rd_Floor": 20, "Elevator_3_3rd_Floor": 20, "Elevator_4_3rd_Floor": 20 },
-    "Operating_Theater_1": { "Sterile_Hallway": 10, "Elevator_1_3rd_Floor": 5 },
-    "Operating_Theater_2": { "Sterile_Hallway": 10, "Elevator_2_3rd_Floor": 5 },
-    "Recovery_Ward": { "Sterile_Hallway": 15 },
-    "Pre_Surgery_Preparation_Room": { "Sterile_Hallway": 15 },
-    "Elevator_1_3rd_Floor": { "Elevator_1_2nd_Floor": 5, "Elevator_1_4th_Floor": 5, "Operating_Theater_1": 5, "Sterile_Hallway": 20 },
-    "Elevator_2_3rd_Floor": { "Elevator_2_2nd_Floor": 5, "Elevator_2_4th_Floor": 5, "Operating_Theater_2": 5, "Sterile_Hallway": 20 },
-    "Elevator_3_3rd_Floor": { "Elevator_3_2nd_Floor": 5, "Elevator_3_4th_Floor": 5, "Sterile_Hallway": 20 },
-    "Elevator_4_3rd_Floor": { "Elevator_4_2nd_Floor": 5, "Elevator_4_4th_Floor": 5, "Sterile_Hallway": 20 },
+    "Sterile_Hallway": { 
+        "Operating_Theater_1": { dist: 10, dir: "North" },
+        "Recovery_Ward": { dist: 15, dir: "East" },
+        "Elevator_1_3rd_Floor": { dist: 20, dir: "North" }
+    },
+    "Operating_Theater_1": { "Sterile_Hallway": { dist: 10, dir: "South" }, "Elevator_1_3rd_Floor": { dist: 5, dir: "West" } },
+    "Recovery_Ward": { "Sterile_Hallway": { dist: 15, dir: "West" } },
+    "Elevator_1_3rd_Floor": { "Sterile_Hallway": { dist: 20, dir: "South" }, "Elevator_1_4th_Floor": { dist: 5, dir: "Up" }, "Elevator_1_2nd_Floor": { dist: 5, dir: "Down" } },
 
     // --- 4th FLOOR ---
-    "Central_Nursing_Station": { "Pediatric_Ward": 15, "Maternity_Ward": 15, "General_Ward_A": 15, "General_Ward_B": 15, "Elevator_1_4th_Floor": 20, "Elevator_2_4th_Floor": 20, "Elevator_3_4th_Floor": 20, "Elevator_4_4th_Floor": 20 },
-    "Pediatric_Ward": { "Central_Nursing_Station": 15 },
-    "Maternity_Ward": { "Central_Nursing_Station": 15 },
-    "General_Ward_A": { "Central_Nursing_Station": 15 },
-    "General_Ward_B": { "Central_Nursing_Station": 15 },
-    "Elevator_1_4th_Floor": { "Elevator_1_3rd_Floor": 5, "Elevator_1_5th_Floor": 5, "Central_Nursing_Station": 20 },
-    "Elevator_2_4th_Floor": { "Elevator_2_3rd_Floor": 5, "Elevator_2_5th_Floor": 5, "Central_Nursing_Station": 20 },
-    "Elevator_3_4th_Floor": { "Elevator_3_3rd_Floor": 5, "Elevator_3_5th_Floor": 5, "Central_Nursing_Station": 20 },
-    "Elevator_4_4th_Floor": { "Elevator_4_3rd_Floor": 5, "Elevator_4_5th_Floor": 5, "Central_Nursing_Station": 20 },
+    "Central_Nursing_Station": { 
+        "Pediatric_Ward": { dist: 15, dir: "North East" },
+        "General_Ward_A": { dist: 15, dir: "South East" },
+        "Elevator_1_4th_Floor": { dist: 20, dir: "North" }
+    },
+    "Pediatric_Ward": { "Central_Nursing_Station": { dist: 15, dir: "South West" } },
+    "Elevator_1_4th_Floor": { "Central_Nursing_Station": { dist: 20, dir: "South" }, "Elevator_1_5th_Floor": { dist: 5, dir: "Up" }, "Elevator_1_3rd_Floor": { dist: 5, dir: "Down" } },
 
     // --- 5th FLOOR ---
-    "Security_Hub": { "Intensive_Care_Unit": 10, "Neonatal_Intensive_Care_Unit": 15, "Private_VIP_Suite": 15, "Administration_Boardroom": 20, "Elevator_1_5th_Floor": 20, "Elevator_2_5th_Floor": 20, "Elevator_3_5th_Floor": 20, "Elevator_4_5th_Floor": 20 },
-    "Intensive_Care_Unit": { "Security_Hub": 10, "Elevator_1_5th_Floor": 5 },
-    "Neonatal_Intensive_Care_Unit": { "Security_Hub": 15 },
-    "Private_VIP_Suite": { "Security_Hub": 15, "Elevator_2_5th_Floor": 5 },
-    "Administration_Boardroom": { "Security_Hub": 20 },
-    "Elevator_1_5th_Floor": { "Elevator_1_4th_Floor": 5, "Intensive_Care_Unit": 5, "Security_Hub": 20 },
-    "Elevator_2_5th_Floor": { "Elevator_2_4th_Floor": 5, "Private_VIP_Suite": 5, "Security_Hub": 20 },
-    "Elevator_3_5th_Floor": { "Elevator_3_4th_Floor": 5, "Security_Hub": 20 },
-    "Elevator_4_5th_Floor": { "Elevator_4_4th_Floor": 5, "Security_Hub": 20 }
+    "Security_Hub": { 
+        "Intensive_Care_Unit": { dist: 10, dir: "North" },
+        "Administration_Boardroom": { dist: 20, dir: "South East" },
+        "Elevator_1_5th_Floor": { dist: 20, dir: "North" }
+    },
+    "Intensive_Care_Unit": { "Security_Hub": { dist: 10, dir: "South" }, "Elevator_1_5th_Floor": { dist: 5, dir: "West" } },
+    "Elevator_1_5th_Floor": { "Security_Hub": { dist: 20, dir: "South" }, "Elevator_1_4th_Floor": { dist: 5, dir: "Down" } }
 };
