@@ -31,9 +31,17 @@ const translations = {
         "North": "ወደ ሰሜን", "South": "ወደ ደቡብ", "East": "ወደ ምስራቅ", "West": "ወደ ምዕራብ",
         "North East": "ወደ ሰሜን ምስራቅ", "North West": "ወደ ሰሜን ምዕራብ", "South East": "ወደ ደቡብ ምስራቅ", "South West": "ወደ ደቡብ ምዕራብ",
         "Up": "ወደ ላይ", "Down": "ወደ ታች", "total": "ጠቅላላ ርቀት:",
-        // Rooms
+        // Rooms - Full Dictionary
+        "Main Entrance": "ዋና መግቢያ", "Main Reception Desk": "ዋና መቀበያ ጠረጴዛ", "Emergency Room Triage": "የአደጋ ጊዜ ታካሚዎች መለያ ክፍል", "Emergency Entrance": "የአደጋ ጊዜ መግቢያ", "Pharmacy": "መድኃኒት ቤት", "Cafeteria": "ካፌቴሪያ", "Gift Shop": "የጥቅማጥቅም መሸጫ ሱቅ",
+        "Laboratory Waiting Area": "የላብራቶሪ መጠበቂያ ቦታ", "Radiology Department": "የራጅ/ራዲዮሎጂ ክፍል", "Pathology Laboratory": "የፓቶሎጂ ላብራቶሪ", "Blood Bank": "የደም ባንክ", "Dialysis Center": "የዲያሊሲስ ማዕከል",
+        "Doctors Lobby": "የሐኪሞች መቀበያ", "Cardiology Wing": "የልብ ሕክምና ክፍል", "Neurology Wing": "የነርቭ ሕክምና ክፍል",
+        "Sterile Hallway": "ንፁህ ኮሪደር", "Operating Theater 1": "የቀዶ ጥገና ክፍል 1", "Operating Theater 2": "የቀዶ ጥገና ክፍል 2", "Recovery Ward": "የማገገሚያ ክፍል",
+        "Central Nursing Station": "ማዕከላዊ የነርሶች ጣቢያ", "Pediatric Ward": "የሕፃናት ሕክምና ክፍል", "Maternity Ward": "የወሊድ ክፍል",
+        "Security Hub": "የጥበቃ ማዕከል", "Intensive Care Unit": "ፅኑ ሕሙማን መከታተያ (ICU)",
+        // Floors
         "Underground": "ከርሰ ምድር", "Ground Floor": "ምድር ቤት", "1st Floor": "1ኛ ፎቅ", "2nd Floor": "2ኛ ፎቅ", "3rd Floor": "3ኛ ፎቅ", "4th Floor": "4ኛ ፎቅ", "5th Floor": "5ኛ ፎቅ",
-        "Elevator": "ሊፍት", "Main Entrance": "ዋና መግቢያ", "Intensive Care Unit": "ፅኑ ሕሙማን መከታተያ (ICU)"
+        "Elevator 1": "ሊፍት 1", "Elevator 2": "ሊፍት 2", "Elevator 3": "ሊፍት 3", "Elevator 4": "ሊፍት 4",
+        "Parking Central Hub": "ማዕከላዊ የመኪና ማቆሚያ", "Ambulance Bay": "የአምቡላንስ ማቆሚያ", "Downtown Area": "መሀል ከተማ"
     }
 };
 
@@ -46,38 +54,29 @@ function translate(text) {
 }
 
 function generateDetailedInstructions(path) {
-    let html = "<ol style='padding-left: 20px; line-height: 1.8;'>";
+    let html = "<ol style='padding-left: 20px;'>";
     let i = 0;
-
     while (i < path.length - 1) {
-        let current = path[i];
-        let next = path[i+1];
+        let current = path[i], next = path[i+1];
         
-        // --- 1. SMART ELEVATOR COLLAPSE ---
-        if (current.includes("Elevator") && next.includes("Elevator") && current.substring(0,10) === next.substring(0,10)) {
-            let elevatorID = current.split("_").slice(0,2).join(" "); // e.g., "Elevator 1"
-            let j = i + 1;
-            // Scan ahead: find the final destination of this elevator trip
-            while (j < path.length - 1 && path[j+1].includes("Elevator") && path[j+1].substring(0,10) === current.substring(0,10)) {
-                j++;
-            }
-            let targetFloor = translate(path[j].split("_").slice(2).join(" "));
-            html += (currentLang === "am")
-                ? `<li>በ<b>${translate(elevatorID)}</b> በቀጥታ ወደ <b>${targetFloor}</b> ይውጡ</li>`
-                : `<li>Take <b>${elevatorID}</b> directly to the <b>${targetFloor}</b></li>`;
-            i = j; // Move the index forward to the end of the elevator trip
-        } 
-        // --- 2. COMPASS NAVIGATION ---
-        else {
-            let edge = hospitalGraph[current][next];
-            let from = translate(current);
-            let to = translate(next);
-            let direction = translate(edge.dir);
-            let distance = edge.dist;
+        // Identify Elevator shaft
+        let curSplit = current.split("_"), nxtSplit = next.split("_");
+        let isElevator = (curSplit[0] === "Elevator" && nxtSplit[0] === "Elevator" && curSplit[1] === nxtSplit[1]);
 
+        if (isElevator) {
+            let elevID = curSplit[0] + " " + curSplit[1];
+            let j = i;
+            while (j < path.length - 1 && path[j+1].startsWith(curSplit[0] + "_" + curSplit[1])) { j++; }
+            let finalFloor = translate(path[j].split("_").slice(2).join(" "));
+            html += (currentLang === "am") 
+                ? `<li>በ<b>${translate(elevID)}</b> በቀጥታ ወደ <b>${finalFloor}</b> ይሂዱ</li>`
+                : `<li>Take <b>${elevID}</b> directly to the <b>${finalFloor}</b></li>`;
+            i = j;
+        } else {
+            let edge = hospitalGraph[current][next];
             html += (currentLang === "am")
-                ? `<li>ከ${from} ተነስተው <b>${distance}ሜ ${direction}</b> ወደ ${to} ይራመዱ</li>`
-                : `<li>From ${from}, walk <b>${distance}m ${direction}</b> to reach the <b>${to}</b></li>`;
+                ? `<li>ከ<b>${translate(current)}</b> ተነስተው ${edge.dist}ሜ <b>${translate(edge.dir)}</b> ወደ <b>${translate(next)}</b> ይራመዱ</li>`
+                : `<li>From <b>${translate(current)}</b>, walk <b>${edge.dist}m ${edge.dir}</b> to reach the <b>${translate(next)}</b></li>`;
             i++;
         }
     }
@@ -122,19 +121,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     emergencyBtn.addEventListener("click", () => {
-        const hospitals = ["Main_Entrance", "North_Hospital", "North_East_Hospital", "East_Hospital", "South_East_Hospital", "South_Hospital", "South_West_Hospital", "West_Hospital", "North_West_Hospital"];
-        let min = Infinity, best = null;
-        hospitals.forEach(h => {
+        const hosp = ["Main_Entrance", "North_Hospital", "North_East_Hospital", "East_Hospital", "South_East_Hospital", "South_Hospital", "South_West_Hospital", "West_Hospital", "North_West_Hospital"];
+        let min = Infinity, best = null, bestName = "";
+        hosp.forEach(h => {
             if (startSelect.value === h) return;
             let r = findShortestPath(startSelect.value, h);
-            if (r.distance < min) { min = r.distance; best = r; }
+            if (r.distance < min) { min = r.distance; best = r; bestName = h; }
         });
         if (best) {
             outputCard.classList.remove("hidden");
-            document.getElementById("path-result").innerHTML = generateDetailedInstructions(best.path);
+            document.getElementById("path-result").innerHTML = (currentLang === "am" ? `<b style='color:#e74c3c'>🚨 አስቸኳይ አደጋ፡ ወደ ${translate(bestName)} በመሄድ ላይ</b><br>` : "") + generateDetailedInstructions(best.path);
             document.getElementById("distance-result").innerText = (currentLang === "am" ? translations.am.total + " " : "Total Distance: ") + formatDistance(min);
         }
     });
-
     updateUI();
 });
